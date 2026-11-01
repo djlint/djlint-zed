@@ -8,36 +8,38 @@ struct DjlintExtension;
 
 impl DjlintExtension {
     fn command(worktree: &zed::Worktree) -> Result<zed::Command> {
-        let binary = LspSettings::for_worktree(SERVER, worktree)
-            .ok()
-            .and_then(|settings| settings.binary);
         let (path, arguments, env) =
-            binary.map_or((None, None, None), |b| (b.path, b.arguments, b.env));
-        let mut env: Vec<_> =
-            env.map_or_else(Vec::new, |env| env.into_iter().collect());
-        env.extend(worktree.shell_env());
+            LspSettings::for_worktree(SERVER, worktree)
+                .ok()
+                .and_then(move |settings| settings.binary)
+                .map_or((None, None, None), move |binary| {
+                    (binary.path, binary.arguments, binary.env)
+                });
 
-        if let Some(command) = path.or_else(|| worktree.which(SERVER)) {
-            return Ok(zed::Command {
-                command,
-                args: arguments.unwrap_or_else(|| vec!["--lsp".to_owned()]),
-                env,
+        let (command, args) = if let Some(command) =
+            path.or_else(move || worktree.which(SERVER))
+        {
+            let args =
+                arguments.unwrap_or_else(move || vec![String::from("--lsp")]);
+            (command, args)
+        } else if let Some(command) = worktree.which("uvx") {
+            let args = arguments.unwrap_or_else(move || {
+                ["--from", "djlint>=1.49", "djlint", "--lsp"]
+                    .map(String::from)
+                    .to_vec()
             });
-        }
-        if let Some(command) = worktree.which("uvx") {
-            return Ok(zed::Command {
-                command,
-                args: arguments.unwrap_or_else(|| {
-                    ["--from", "djlint>=1.49", "djlint", "--lsp"]
-                        .map(str::to_owned)
-                        .to_vec()
-                }),
-                env,
-            });
-        }
-        Err("djLint is not on PATH. Install it with `pip install djlint`, or \
-             install uv, which runs it with no install."
-            .to_owned())
+            (command, args)
+        } else {
+            return Err(String::from(
+                "djLint is not on PATH. Install it with `pip install djlint`, \
+                 or install uv, which runs it with no install.",
+            ));
+        };
+
+        let mut env: Vec<_> =
+            env.map_or_else(Vec::new, move |env| env.into_iter().collect());
+        env.extend(worktree.shell_env());
+        Ok(zed::Command { command, args, env })
     }
 }
 
@@ -61,7 +63,7 @@ impl zed::Extension for DjlintExtension {
     ) -> Result<Option<serde_json::Value>> {
         Ok(LspSettings::for_worktree(SERVER, worktree)
             .ok()
-            .and_then(|settings| settings.initialization_options))
+            .and_then(move |settings| settings.initialization_options))
     }
 
     fn language_server_workspace_configuration(
@@ -71,8 +73,8 @@ impl zed::Extension for DjlintExtension {
     ) -> Result<Option<serde_json::Value>> {
         Ok(LspSettings::for_worktree(SERVER, worktree)
             .ok()
-            .and_then(|settings| settings.settings)
-            .map(|settings| serde_json::json!({ SERVER: settings })))
+            .and_then(move |settings| settings.settings)
+            .map(move |settings| serde_json::json!({ SERVER: settings })))
     }
 }
 
