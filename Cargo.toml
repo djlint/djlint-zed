@@ -1,0 +1,14 @@
+[package]
+name = "zed-djlint"
+version = "0.1.0"
+edition = "2024"
+description = "djLint for Zed: lint and format HTML templates"
+repository = "https://github.com/djlint/zed-djlint"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+zed_extension_api = "=0.7.0"

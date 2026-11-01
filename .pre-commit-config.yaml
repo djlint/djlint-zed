@@ -1,0 +1,37 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-illegal-windows-names
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+        exclude_types:
+          - rust
+      - id: check-symlinks
+      - id: check-xml
+      - id: destroyed-symlinks
+      - id: end-of-file-fixer
+        exclude: \.svg$
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+        args:
+          - --fix=lf
+      - id: trailing-whitespace
+  - repo: https://github.com/tombi-toml/tombi-pre-commit
+    rev: 0b38d622dd760f14333c8cf6b49cd6588f7d2427 # frozen: v1.9.7
+    hooks:
+      - id: tombi-format
+        exclude: ^.*Cargo.lock$
+  - repo: https://github.com/rbubley/mirrors-prettier
+    rev: 331f33fa4dfbcbca7c3da3620c137fde0faab273 # frozen: v3.9.10
+    hooks:
+      - id: prettier
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: c92afdf2c6ca336aaa8f39e2bd8d48f62dbd8e1f # frozen: v1.31.1
+    hooks:
+      - id: zizmor
+        args:
+          - --no-progress
+          - --persona=pedantic

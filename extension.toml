@@ -1,0 +1,36 @@
+id = "djlint"
+name = "djLint"
+version = "0.1.0"
+schema_version = 1
+authors = ["monosans <hsyqixco@protonmail.com>"]
+description = "Lint and format HTML templates with djLint"
+repository = "https://github.com/djlint/zed-djlint"
+
+[language_servers.djlint]
+name = "djLint"
+languages = [
+  "Angular",
+  "Django",
+  "Go HTML Template",
+  "HTML",
+  "Jinja2",
+  "Liquid",
+  "Mustache",
+  "Nunjucks",
+  "Tera",
+  "Tera (HTML)",
+  "Twig",
+]
+
+[language_servers.djlint.language_ids]
+"Angular" = "angular"
+"Django" = "htmldjango"
+"Go HTML Template" = "gohtml"
+"HTML" = "html"
+"Jinja2" = "jinja"
+"Liquid" = "liquid"
+"Mustache" = "mustache"
+"Nunjucks" = "nunjucks"
+"Tera" = "tera"
+"Tera (HTML)" = "tera-html"
+"Twig" = "jinja"
