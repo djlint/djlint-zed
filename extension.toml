@@ -1,10 +1,10 @@
-id = "djlint"
+id = "djlint-lsp"
 name = "djLint"
 version = "0.1.0"
 schema_version = 1
 authors = ["monosans <hsyqixco@protonmail.com>"]
 description = "Lint and format HTML templates with djLint"
-repository = "https://github.com/djlint/zed-djlint"
+repository = "https://github.com/djlint/djlint-zed"
 
 [language_servers.djlint]
 name = "djLint"
@@ -13,6 +13,8 @@ languages = [
   "Django",
   "Go HTML Template",
   "HTML",
+  "HTML-Jinja",
+  "Handlebars",
   "Jinja2",
   "Liquid",
   "Mustache",
@@ -27,6 +29,8 @@ languages = [
 "Django" = "htmldjango"
 "Go HTML Template" = "gohtml"
 "HTML" = "html"
+"HTML-Jinja" = "jinja-html"
+"Handlebars" = "handlebars"
 "Jinja2" = "jinja"
 "Liquid" = "liquid"
 "Mustache" = "mustache"

@@ -1,9 +1,9 @@
 [package]
-name = "zed-djlint"
+name = "djlint-zed"
 version = "0.1.0"
 edition = "2024"
 description = "djLint for Zed: lint and format HTML templates"
-repository = "https://github.com/djlint/zed-djlint"
+repository = "https://github.com/djlint/djlint-zed"
 license = "MIT"
 publish = false
 
