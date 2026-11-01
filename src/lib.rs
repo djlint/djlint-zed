@@ -16,19 +16,18 @@ impl DjlintExtension {
                     (binary.path, binary.arguments, binary.env)
                 });
 
-        let (command, args) = if let Some(command) =
+        let mut args =
+            arguments.unwrap_or_else(move || vec![String::from("--lsp")]);
+        let command = if let Some(command) =
             path.or_else(move || worktree.which(SERVER))
         {
-            let args =
-                arguments.unwrap_or_else(move || vec![String::from("--lsp")]);
-            (command, args)
+            command
         } else if let Some(command) = worktree.which("uvx") {
-            let args = arguments.unwrap_or_else(move || {
-                ["--from", "djlint>=1.49", "djlint", "--lsp"]
-                    .map(String::from)
-                    .to_vec()
-            });
-            (command, args)
+            args.splice(
+                0..0,
+                ["--from", "djlint>=1.49", "djlint"].map(String::from),
+            );
+            command
         } else {
             return Err(String::from(
                 "djLint is not on PATH. Install it with `pip install djlint`, \
@@ -36,10 +35,9 @@ impl DjlintExtension {
             ));
         };
 
-        let mut env: Vec<_> =
-            env.map_or_else(Vec::new, move |env| env.into_iter().collect());
-        env.extend(worktree.shell_env());
-        Ok(zed::Command { command, args, env })
+        let mut shell_env = worktree.shell_env();
+        shell_env.extend(env.into_iter().flatten());
+        Ok(zed::Command { command, args, env: shell_env })
     }
 }
 
