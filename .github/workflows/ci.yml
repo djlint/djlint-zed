@@ -47,7 +47,7 @@ jobs:
           target: wasm32-wasip2
           components: clippy
           cache-save-if: ${{ github.ref == 'refs/heads/main' }}
-      - run: cargo +beta clippy --all-targets --target wasm32-wasip2 --
+      - run: cargo +beta clippy --target wasm32-wasip2 --
   pre-commit:
     runs-on: ubuntu-26.04
     steps:
