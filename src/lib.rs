@@ -1,3 +1,6 @@
+//! The djLint extension for Zed: runs djLint as a language server for HTML
+//! templates.
+
 use zed_extension_api::{
     self as zed, LanguageServerId, Result, serde_json, settings::LspSettings,
 };
@@ -41,6 +44,7 @@ impl DjlintExtension {
     }
 }
 
+#[expect(clippy::missing_trait_methods)]
 impl zed::Extension for DjlintExtension {
     fn new() -> Self {
         Self
@@ -76,4 +80,4 @@ impl zed::Extension for DjlintExtension {
     }
 }
 
-zed::register_extension!(DjlintExtension);
+mod registration;

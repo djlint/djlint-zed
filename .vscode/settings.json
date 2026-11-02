@@ -1,0 +1,8 @@
+{
+  "[rust]": { "editor.defaultFormatter": "rust-lang.rust-analyzer" },
+  "[toml]": { "editor.defaultFormatter": "tombi-toml.tombi" },
+  "rust-analyzer.cargo.extraEnv": { "RUSTUP_TOOLCHAIN": "beta" },
+  "rust-analyzer.cargo.target": "wasm32-wasip2",
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.rustfmt.extraArgs": ["+nightly"]
+}
