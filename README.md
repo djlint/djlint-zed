@@ -15,11 +15,7 @@ Install the extension from Zed's extensions page. It needs djLint 1.49 or newer,
 Findings appear in these languages as soon as the extension is installed. To format with djLint, make it the formatter of the languages you want:
 
 ```json
-{
-  "languages": {
-    "Django": { "formatter": { "language_server": { "name": "djlint" } } }
-  }
-}
+{ "languages": { "Django": { "formatter": { "language_server": { "name": "djlint" } } } } }
 ```
 
 To leave a language out, such as plain HTML, turn the server off for it:
