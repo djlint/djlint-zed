@@ -2,6 +2,18 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "branchTopic": "{{{depNameSanitized}}}-{{{newMajor}}}{{#if separateMinorPatch}}{{#if isPatch}}.{{{newMinor}}}{{/if}}{{/if}}{{#if separateMultipleMinor}}{{#if isMinor}}.{{{newMinor}}}{{/if}}{{/if}}.x",
   "configMigration": true,
+  "constraints": { "rust": "1.100" },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "The Rust that Renovate runs cargo on. From 1.100 on, cargo applies the cooldown in .cargo/config.toml to every crate it locks, transitive ones included",
+      "managerFilePatterns": ["/^\\.github/renovate\\.json$/"],
+      "matchStrings": ["\"rust\": \"(?<currentValue>\\d+\\.\\d+)\""],
+      "depNameTemplate": "rust",
+      "datasourceTemplate": "rust-version",
+      "versioningTemplate": "rust-release-channel"
+    }
+  ],
   "dependencyDashboard": false,
   "extends": [
     "config:recommended",
@@ -20,12 +32,7 @@
     },
     { "matchCurrentVersion": "!/^0/", "matchUpdateTypes": ["minor"], "automerge": true },
     { "matchUpdateTypes": ["lockFileMaintenance", "patch", "replacement"], "automerge": true },
-    { "matchManagers": ["github-actions", "pre-commit"], "automerge": true },
-    {
-      "description": "Cargo has no cooldown for the transitive dependencies it resolves, so one on the direct dependencies would only delay updates",
-      "matchManagers": ["cargo"],
-      "minimumReleaseAge": null
-    }
+    { "matchManagers": ["github-actions", "pre-commit"], "automerge": true }
   ],
   "pre-commit": { "enabled": true },
   "rollbackPrs": true,
