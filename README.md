@@ -4,7 +4,9 @@ Lints and formats HTML templates with [djLint](https://djlint.com) in [Zed](http
 
 ## Installation
 
-Install the extension from Zed's extensions page. It needs djLint 1.49 or newer, and looks for it in this order:
+The extension isn't in Zed's extension registry yet. Until it is, install it as a dev extension: clone this repository, run `zed: install dev extension` from the command palette and pick the folder. Zed builds it with Rust, which has to be installed through [rustup](https://rustup.rs).
+
+It needs djLint 1.49 or newer, and looks for it in this order:
 
 1. The `binary` setting below.
 2. `djlint` on PATH.
