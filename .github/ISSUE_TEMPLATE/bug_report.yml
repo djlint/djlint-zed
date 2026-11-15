@@ -1,0 +1,126 @@
+name: 🐛 Bug report
+description: Having a problem using the djLint extension in Zed?
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Wrong formatting or lint results usually come from djLint itself. If
+        `djlint` on the command line or the [online
+        playground](https://djlint.com/demo/) gives the same result, report
+        it in the [djLint
+        tracker](https://github.com/djlint/djLint/issues/new/choose).
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Before you start
+      options:
+        - label: >-
+            I searched the [existing
+            issues](https://github.com/djlint/djlint-zed/issues?q=is%3Aissue)
+            and found nothing about this.
+          required: true
+        - label: I can reproduce this on the latest version of the extension.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "What happened?"
+      description: What you did, what you expected and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |-
+        1. Open a project with ...
+        2. Set ...
+        3. Run editor: format
+    validations:
+      required: true
+  - type: textarea
+    id: template
+    attributes:
+      label: Template
+      description: >-
+        The smallest template that shows the problem, if it depends on the
+        file.
+      render: html
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      description: The language shown in the status bar.
+      options:
+        - Angular
+        - Django
+        - Go HTML Template
+        - HTML
+        - HTML-Jinja
+        - Handlebars
+        - Jinja2
+        - Liquid
+        - Mustache
+        - Nunjucks
+        - Tera
+        - Tera (HTML)
+        - Twig
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: Shown on Zed's extensions page.
+    validations:
+      required: true
+  - type: input
+    id: zed_version
+    attributes:
+      label: Zed version
+      description: "From zed: about."
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: Windows 11, macOS 26, Ubuntu 26.04
+    validations:
+      required: true
+  - type: dropdown
+    id: djlint_source
+    attributes:
+      label: "Which djLint is used?"
+      description: >-
+        See [Installation](https://github.com/djlint/djlint-zed#installation)
+        for the order the extension looks in.
+      options:
+        - The binary setting
+        - djlint on PATH
+        - uv
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: djlint_version
+    attributes:
+      label: djLint version
+      description: "`djlint --version`, for an installed djLint."
+  - type: textarea
+    id: settings
+    attributes:
+      label: Settings
+      description: >-
+        The `lsp.djlint` and `languages` parts of your Zed `settings.json`,
+        and your djLint configuration file if you have one.
+      render: json
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: >-
+        The djlint entries from Zed's language server logs, which open from
+        the command palette.
+      render: text
