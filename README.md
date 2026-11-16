@@ -15,7 +15,7 @@ The extension isn't in Zed's extension registry yet. Until it is, install it as 
 
 3. In Zed, open the command palette (`cmd-shift-p` on macOS, `ctrl-shift-p` elsewhere), run `zed: install dev extension` and pick the `djlint-zed` folder.
 
-To update it, run `git pull` in that folder, then `zed: rebuild dev extension`. The [djLint docs](https://djlint.com/docs/integrations/#zed) have the same steps in 14 languages.
+To update it, run `git pull` in that folder, then `zed: rebuild dev extension`.
 
 It needs djLint 1.49 or newer, and looks for it in this order:
 
