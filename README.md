@@ -6,7 +6,7 @@ Lints and formats HTML templates with [djLint](https://djlint.com) in [Zed](http
 
 The extension isn't in Zed's extension registry yet. Until it is, install it as a dev extension, as the [djLint docs](https://djlint.com/docs/integrations/#zed) describe.
 
-It needs djLint 1.49.8 or newer, and looks for it in this order:
+It needs djLint 1.49 or newer, and looks for it in this order:
 
 1. The `binary` setting below.
 2. `djlint` on PATH.

@@ -18,7 +18,7 @@ impl DjlintExtension {
         let command = if let Some(command) = path.or_else(move || worktree.which(SERVER)) {
             command
         } else if let Some(command) = worktree.which("uvx") {
-            args.splice(0..0, ["--from", "djlint>=1.49.8", "djlint"].map(String::from));
+            args.splice(0..0, ["--from", "djlint>=1.49", "djlint"].map(String::from));
             command
         } else {
             return Err(String::from(
