@@ -38,8 +38,9 @@ impl DjlintExtension {
             command
         } else {
             return Err(String::from(
-                "djLint is not on PATH. Install it with `pip install djlint`, or in the project \
-                 with `npm i -D djlint`, or install uv, which runs it with no install.",
+                "djLint is not on PATH. Install it with `uv tool install djlint` or `pip install \
+                 djlint`, add it to the project with `npm i -D djlint`, or install just uv, which \
+                 runs djLint with no install.",
             ));
         };
 
