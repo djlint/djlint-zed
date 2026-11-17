@@ -17,6 +17,7 @@ languages = [
   "Handlebars",
   "Jinja2",
   "Liquid",
+  "Mako",
   "Mustache",
   "Nunjucks",
   "Tera",
@@ -33,8 +34,9 @@ languages = [
 "Handlebars" = "handlebars"
 "Jinja2" = "jinja"
 "Liquid" = "liquid"
+"Mako" = "mako"
 "Mustache" = "mustache"
 "Nunjucks" = "nunjucks"
 "Tera" = "tera"
 "Tera (HTML)" = "tera-html"
-"Twig" = "jinja"
+"Twig" = "nunjucks"

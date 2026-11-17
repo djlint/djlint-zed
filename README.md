@@ -1,6 +1,6 @@
 # djLint for Zed
 
-Lints and formats HTML templates with [djLint](https://djlint.com) in [Zed](https://zed.dev), through its language server. It works in HTML and in the languages of the template extensions: Django, Jinja2, HTML-Jinja, Twig, Nunjucks, Liquid, Handlebars, Mustache, Tera, Angular and Go HTML templates.
+Lints and formats HTML templates with [djLint](https://djlint.com) in [Zed](https://zed.dev), through its language server. It works in HTML and in the languages of the template extensions: Django, Jinja2, HTML-Jinja, Twig, Nunjucks, Liquid, Handlebars, Mustache, Tera, Mako, Angular and Go HTML templates.
 
 ## Installation
 
