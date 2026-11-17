@@ -61,6 +61,7 @@ body:
         - Handlebars
         - Jinja2
         - Liquid
+        - Mako
         - Mustache
         - Nunjucks
         - Tera
