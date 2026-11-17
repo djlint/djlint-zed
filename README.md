@@ -9,8 +9,9 @@ The extension isn't in Zed's extension registry yet. Until it is, install it as 
 It needs djLint 1.49 or newer, and looks for it in this order:
 
 1. The `binary` setting below.
-2. `djlint` on PATH.
-3. [uv](https://docs.astral.sh/uv/), which runs djLint with no install.
+2. The [djlint npm package](https://www.npmjs.com/package/djlint) in the project's `node_modules`, which comes with its own Python. It runs with the `node` on PATH.
+3. `djlint` on PATH.
+4. [uv](https://docs.astral.sh/uv/), which runs djLint with no install.
 
 ## Usage
 

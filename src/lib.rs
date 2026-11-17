@@ -8,6 +8,17 @@ const SERVER: &str = "djlint";
 struct DjlintExtension;
 
 impl DjlintExtension {
+    /// Node and the launcher of the djlint npm package in the worktree, which
+    /// runs djLint on the Python that comes with the package.
+    fn npm_launcher(worktree: &zed::Worktree) -> Option<(String, String)> {
+        let manifest = worktree.read_text_file("node_modules/djlint/package.json").ok()?;
+        let manifest: serde_json::Value = serde_json::from_str(&manifest).ok()?;
+        // The older package only ran pip, and has no command of its own.
+        let launcher = manifest.get("bin")?.get(SERVER)?.as_str()?;
+        let node = worktree.which("node")?;
+        Some((node, format!("{}/node_modules/djlint/{launcher}", worktree.root_path())))
+    }
+
     fn command(worktree: &zed::Worktree) -> Result<zed::Command> {
         let (path, arguments, env) = LspSettings::for_worktree(SERVER, worktree)
             .ok()
@@ -15,15 +26,20 @@ impl DjlintExtension {
             .map_or((None, None, None), move |binary| (binary.path, binary.arguments, binary.env));
 
         let mut args = arguments.unwrap_or_else(move || vec![String::from("--lsp")]);
-        let command = if let Some(command) = path.or_else(move || worktree.which(SERVER)) {
+        let command = if let Some(command) = path {
+            command
+        } else if let Some((node, launcher)) = Self::npm_launcher(worktree) {
+            args.insert(0, launcher);
+            node
+        } else if let Some(command) = worktree.which(SERVER) {
             command
         } else if let Some(command) = worktree.which("uvx") {
             args.splice(0..0, ["--from", "djlint>=1.49", "djlint"].map(String::from));
             command
         } else {
             return Err(String::from(
-                "djLint is not on PATH. Install it with `pip install djlint`, or install uv, \
-                 which runs it with no install.",
+                "djLint is not on PATH. Install it with `pip install djlint`, or in the project \
+                 with `npm i -D djlint`, or install uv, which runs it with no install.",
             ));
         };
 
