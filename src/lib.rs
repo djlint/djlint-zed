@@ -8,16 +8,11 @@ const SERVER: &str = "djlint";
 struct DjlintExtension;
 
 impl DjlintExtension {
-    /// Node and the launcher of the djlint npm package in the worktree, which
-    /// runs djLint on the Python that comes with the package.
-    fn npm_launcher(worktree: &zed::Worktree) -> Option<(String, String)> {
-        let manifest = worktree.read_text_file("node_modules/djlint/package.json").ok()?;
-        let manifest: serde_json::Value = serde_json::from_str(&manifest).ok()?;
-        // The older package only ran pip, and has no command of its own.
-        let launcher = manifest.get("bin")?.get(SERVER)?.as_str()?;
-        let node = worktree.which("node")?;
-        Some((node, format!("{}/node_modules/djlint/{launcher}", worktree.root_path())))
-    }
+    /// The command the djlint npm package puts in the project. The path makes
+    /// `which` look on disk from the worktree root, so it finds the command in a
+    /// `node_modules` that Zed doesn't scan, as it skips what Git ignores. The
+    /// older package, which only ran pip, has no command.
+    const NPM_COMMAND: &str = "node_modules/.bin/djlint";
 
     fn command(worktree: &zed::Worktree) -> Result<zed::Command> {
         let (path, arguments, env) = LspSettings::for_worktree(SERVER, worktree)
@@ -28,9 +23,8 @@ impl DjlintExtension {
         let mut args = arguments.unwrap_or_else(move || vec![String::from("--lsp")]);
         let command = if let Some(command) = path {
             command
-        } else if let Some((node, launcher)) = Self::npm_launcher(worktree) {
-            args.insert(0, launcher);
-            node
+        } else if let Some(command) = worktree.which(Self::NPM_COMMAND) {
+            command
         } else if let Some(command) = worktree.which(SERVER) {
             command
         } else if let Some(command) = worktree.which("uvx") {
