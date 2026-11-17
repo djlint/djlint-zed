@@ -4,7 +4,7 @@ Lints and formats HTML templates with [djLint](https://djlint.com) in [Zed](http
 
 ## Installation
 
-The extension isn't in Zed's extension registry yet. Until it is, install it as a dev extension, as the [djLint docs](https://djlint.com/docs/integrations/#zed) describe.
+Install it from Zed: open the command palette (`cmd-shift-p` on macOS, `ctrl-shift-p` elsewhere), run **zed: extensions**, search for djLint and click **Install**.
 
 It needs djLint 1.49 or newer, and looks for it in this order:
 
