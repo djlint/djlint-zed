@@ -99,6 +99,7 @@ body:
         for the order the extension looks in.
       options:
         - The binary setting
+        - node_modules/.bin/djlint in the project
         - djlint on PATH
         - uv
         - Not sure
