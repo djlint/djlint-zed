@@ -10,7 +10,7 @@ It needs djLint 1.49 or newer, and looks for it in this order:
 
 1. The `binary` setting below.
 2. `node_modules/.bin/djlint` in the project, which `npm i -D djlint` puts there. The [npm package](https://www.npmjs.com/package/djlint) comes with its own Python and runs on the `node` on PATH.
-3. `djlint` on PATH.
+3. `djlint` on PATH, such as one from `uv tool install`, pip, pipx or `npm i -g`.
 4. [uv](https://docs.astral.sh/uv/), which runs djLint with no install.
 
 ## Usage
