@@ -8,6 +8,12 @@ const SERVER: &str = "djlint";
 struct DjlintExtension;
 
 impl DjlintExtension {
+    /// The command the djlint npm package puts in the project. The path makes
+    /// `which` look on disk from the worktree root, so it finds the command in a
+    /// `node_modules` that Zed doesn't scan, as it skips what Git ignores. The
+    /// older package, which only ran pip, has no command.
+    const NPM_COMMAND: &str = "node_modules/.bin/djlint";
+
     fn command(worktree: &zed::Worktree) -> Result<zed::Command> {
         let (path, arguments, env) = LspSettings::for_worktree(SERVER, worktree)
             .ok()
@@ -15,15 +21,20 @@ impl DjlintExtension {
             .map_or((None, None, None), move |binary| (binary.path, binary.arguments, binary.env));
 
         let mut args = arguments.unwrap_or_else(move || vec![String::from("--lsp")]);
-        let command = if let Some(command) = path.or_else(move || worktree.which(SERVER)) {
+        let command = if let Some(command) = path {
+            command
+        } else if let Some(command) = worktree.which(Self::NPM_COMMAND) {
+            command
+        } else if let Some(command) = worktree.which(SERVER) {
             command
         } else if let Some(command) = worktree.which("uvx") {
             args.splice(0..0, ["--from", "djlint>=1.49", "djlint"].map(String::from));
             command
         } else {
             return Err(String::from(
-                "djLint is not on PATH. Install it with `pip install djlint`, or install uv, \
-                 which runs it with no install.",
+                "djLint is not on PATH. Install it with `uv tool install djlint` or `pip install \
+                 djlint`, add it to the project with `npm i -D djlint`, or install just uv, which \
+                 runs djLint with no install.",
             ));
         };
 
