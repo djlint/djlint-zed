@@ -44,7 +44,10 @@ impl DjlintExtension {
     }
 }
 
-#[expect(clippy::missing_trait_methods)]
+#[expect(
+    clippy::missing_trait_methods,
+    reason = "the provided methods are the defaults Zed expects"
+)]
 impl zed::Extension for DjlintExtension {
     fn new() -> Self {
         Self
