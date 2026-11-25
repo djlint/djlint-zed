@@ -13,6 +13,12 @@ crate-type = ["cdylib"]
 [dependencies]
 zed_extension_api = "=0.7.0"
 
+[lints.cargo]
+correctness = { level = "deny", priority = -1 }
+pedantic = { level = "deny", priority = -1 }
+style = { level = "deny", priority = -1 }
+suspicious = { level = "deny", priority = -1 }
+
 [lints.clippy]
 absolute_paths = "allow"
 all = { level = "deny", priority = -1 }
