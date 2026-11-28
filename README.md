@@ -4,18 +4,7 @@ Lints and formats HTML templates with [djLint](https://djlint.com) in [Zed](http
 
 ## Installation
 
-The extension isn't in Zed's extension registry yet. Until it is, install it as a dev extension:
-
-1. Install Rust through [rustup](https://rustup.rs): Zed builds the extension with it and adds the `wasm32-wasip2` target itself. With a Rust from elsewhere, such as Homebrew or Nix, add that target yourself.
-1. Clone the extension:
-
-   ```bash
-   git clone https://github.com/djlint/djlint-zed
-   ```
-
-1. In Zed, open the command palette (`cmd-shift-p` on macOS, `ctrl-shift-p` elsewhere), run **zed: install dev extension** and pick the cloned `djlint-zed` folder.
-
-To update it, run `git pull` in that folder, then **zed: rebuild dev extension**.
+Install it from Zed: open the command palette (`cmd-shift-p` on macOS, `ctrl-shift-p` elsewhere), run **zed: extensions**, search for djLint and click **Install**. Zed updates it by itself.
 
 It needs djLint 1.49 or newer, and looks for it in this order:
 
